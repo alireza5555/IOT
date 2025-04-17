@@ -51,4 +51,14 @@ public class Database  {
         }
     }
 
+    public void removeDevice( String name)throws NoSuchElementException{
+        for ( int i = 0 ; i < deviceList.size() ; i++){
+            if(deviceList.get(i).getName().equals(name)){
+                deviceList.remove(i);
+                return;
+            }
+        }
+        throw new NoSuchElementException("device not found");
+    }
+
 }
