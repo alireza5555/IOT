@@ -10,6 +10,7 @@ public class Light extends Entity {
 
     }
 
+
     private int brightness;
 
     public void setBrightness(int brightness){
