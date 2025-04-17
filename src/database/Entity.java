@@ -1,13 +1,13 @@
 package database;
 
-public abstract class Entity {
+public abstract class Entity implements Cloneable {
 
-    enum Status{
+    public enum Status{
         ON,
         OFF
     }
 
-    enum Protocol{
+    public enum Protocol{
         Wifi,
         Bluetooth
     }
@@ -25,6 +25,8 @@ public abstract class Entity {
     }
 
     public void setProtocol(Protocol protocol) {
+        if(protocol instanceof Protocol)
+
         this.protocol = protocol;
     }
 
@@ -38,5 +40,14 @@ public abstract class Entity {
 
     public Protocol getProtocol() {
         return protocol;
+    }
+
+    @Override
+    public Entity clone() {
+        try {
+            return (Entity) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

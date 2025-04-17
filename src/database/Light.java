@@ -2,9 +2,9 @@ package database;
 
 public class Light extends Entity {
 
-    public Light (String name , int brightness , Protocol protocol){
+    public Light (String name , Protocol protocol){
         setName(name);
-        setBrightness(brightness);
+        setBrightness(50);
         setStatus(Status.OFF);
         setProtocol(protocol);
 

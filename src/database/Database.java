@@ -1,7 +1,7 @@
 package database;
 import java.util.*;
 
-public class Database {
+public class Database  {
     private static ArrayList <Entity> deviceList = new ArrayList<>();
 
     public static void addDevice(Entity entity) throws Exception {
@@ -10,7 +10,7 @@ public class Database {
                 throw new Exception("this name already exist.");
             }
         }
-        deviceList.add(entity);
+        deviceList.add(entity.clone());
     }
 
 }
