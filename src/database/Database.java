@@ -61,4 +61,16 @@ public class Database  {
         throw new NoSuchElementException("device not found");
     }
 
+    public void getDeviceList (){
+        for (Entity temp : deviceList) {
+            System.out.println("Device name: " + temp.getName());
+            System.out.println("Status: " + temp.getStatus());
+            if(temp instanceof Light){
+                System.out.println("Brightness: " + ((Light) temp).getBrightness());
+            }
+            else System.out.println("Temperature: " + ((Thermostat)temp).getTemperature());
+            System.out.println("Protocol: " + temp.getProtocol());
+        }
+    }
+
 }
