@@ -1,4 +1,6 @@
 package database;
+import com.sun.jdi.request.DuplicateRequestException;
+
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
@@ -7,6 +9,7 @@ import java.util.*;
 
 public class Database  {
     private static ArrayList <Entity> deviceList = new ArrayList<>();
+    private static Map <String,Entity.Rule> rules = new LinkedHashMap<>();
 
     public static void addDevice(Entity entity) throws Exception {
         for (Entity temp : deviceList){
@@ -78,14 +81,44 @@ public class Database  {
     }
 
     public void addRule (String name , String timeStr , String action) throws Exception {
-        Entity temp = findDevice(name);
+        if(!(action.equals(Entity.Status.OFF.toString())) && !(action.equals(Entity.Status.ON.toString())) ) throw new IllegalArgumentException("invalid action");
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+        Entity temp = findDevice(name);
+        if(temp.getRule()!=null) throw new DuplicateRequestException("duplicate rule");
         LocalTime time =  LocalTime.parse(timeStr , formatter);
+        try {
+        }
+        catch (Exception e){
+            System.out.println("invalid time");
+        }
         Entity.Rule rule = new Entity.Rule(time , action);
-        temp.rules.add(rule);
+        temp.setRule(rule);
+        rules.put(name,rule);
 
     }
 
+    public void checkRule(String timeStr){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+        LocalTime time = null;
+        try {
+             time =  LocalTime.parse(timeStr , formatter);
+        }
+        catch (Exception e){
+            System.out.println("invalid time");
+        }
+
+        for (Entity temp : deviceList){
+            if(temp.getRule().time == time){
+                temp.setStatus(temp.getRule().status);
+            }
+        }
+    }
+
+    public void showRules(){
+        for (Map.Entry<String, Entity.Rule> temp: rules.entrySet()) {
+            System.out.println("name: " + temp.getKey() + "time: " + temp.getValue().time.toString() + "action: " + temp.getValue().status.toString() );
+        }
+    }
 
 
 }

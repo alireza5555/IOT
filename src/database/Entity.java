@@ -16,8 +16,7 @@ public abstract class Entity implements Cloneable {
         Bluetooth
     }
 
-    public  ArrayList <Rule> rules = new ArrayList<>();
-
+    private Rule rule = null ;
     private Protocol protocol;
     private Status status;
     private String name;
@@ -66,5 +65,14 @@ public abstract class Entity implements Cloneable {
 
         LocalTime time;
         Status status;
+    }
+
+    public Rule getRule() {
+        return rule;
+    }
+
+    public void setRule(Rule rule) {
+        this.rule = rule;
+
     }
 }
