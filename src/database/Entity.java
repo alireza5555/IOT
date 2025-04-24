@@ -1,5 +1,7 @@
 package database;
 
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public abstract class Entity implements Cloneable {
@@ -14,6 +16,7 @@ public abstract class Entity implements Cloneable {
         Bluetooth
     }
 
+    public  ArrayList <Rule> rules = new ArrayList<>();
 
     private Protocol protocol;
     private Status status;
@@ -52,5 +55,16 @@ public abstract class Entity implements Cloneable {
         } catch (CloneNotSupportedException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    static class Rule{
+
+        public Rule(LocalTime time , String action){
+            this.time = time;
+            status = Status.valueOf(action);
+        }
+
+        LocalTime time;
+        Status status;
     }
 }

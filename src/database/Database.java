@@ -19,7 +19,7 @@ public class Database  {
 
     public static Entity findDevice(String name ) throws Exception {
         for ( Entity temp : deviceList){
-            if(temp.getName().equals(name)){ return temp.clone();}
+            if(temp.getName().equals(name)){ return temp;}
         }
         throw new Exception("Device not found.");
     }
@@ -77,11 +77,15 @@ public class Database  {
         }
     }
 
-    public void addRule (String name , String timeStr , String action){
+    public void addRule (String name , String timeStr , String action) throws Exception {
+        Entity temp = findDevice(name);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
         LocalTime time =  LocalTime.parse(timeStr , formatter);
-
+        Entity.Rule rule = new Entity.Rule(time , action);
+        temp.rules.add(rule);
 
     }
+
+
 
 }
