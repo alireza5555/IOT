@@ -7,12 +7,12 @@ import java.util.ArrayList;
 public abstract class Entity implements Cloneable {
 
     public enum Status{
-        ON,
-        OFF
+        on,
+        off
     }
 
     public enum Protocol{
-        Wifi,
+        WiFi,
         Bluetooth
     }
 

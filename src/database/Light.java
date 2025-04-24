@@ -8,7 +8,7 @@ public class Light extends Entity  {
     public Light (String name , Protocol protocol){
         setName(name);
         setBrightness(50);
-        setStatus(Status.OFF);
+        setStatus(Status.off);
         setProtocol(protocol);
 
     }

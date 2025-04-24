@@ -37,6 +37,7 @@ public class Database  {
                 catch (IllegalArgumentException e){
                     System.out.println(e.getMessage());
                 }
+                break;
 
             case "brightness":
                 try {
@@ -45,6 +46,7 @@ public class Database  {
                 catch (IllegalArgumentException e){
                     System.out.println(e.getMessage());
                 }
+                break;
 
             case "temperature":
                 try {
@@ -53,12 +55,13 @@ public class Database  {
                 catch (IllegalArgumentException e){
                     System.out.println(e.getMessage());
                 }
+                break;
 
 
         }
     }
 
-    public void removeDevice( String name)throws NoSuchElementException{
+    public static void removeDevice( String name)throws NoSuchElementException{
         for ( int i = 0 ; i < deviceList.size() ; i++){
             if(deviceList.get(i).getName().equals(name)){
                 deviceList.remove(i);
@@ -68,7 +71,7 @@ public class Database  {
         throw new NoSuchElementException("device not found");
     }
 
-    public void getDeviceList (){
+    public static void getDeviceList (){
         for (Entity temp : deviceList) {
             System.out.println("Device name: " + temp.getName());
             System.out.println("Status: " + temp.getStatus());
@@ -80,13 +83,14 @@ public class Database  {
         }
     }
 
-    public void addRule (String name , String timeStr , String action) throws Exception {
-        if(!(action.equals(Entity.Status.OFF.toString())) && !(action.equals(Entity.Status.ON.toString())) ) throw new IllegalArgumentException("invalid action");
+    public static void addRule (String name , String timeStr , String action) throws Exception {
+        if(!(action.equals(Entity.Status.off.toString())) && !(action.equals(Entity.Status.on.toString())) ) throw new IllegalArgumentException("invalid action");
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
         Entity temp = findDevice(name);
         if(temp.getRule()!=null) throw new DuplicateRequestException("duplicate rule");
-        LocalTime time =  LocalTime.parse(timeStr , formatter);
+        LocalTime time = null;
         try {
+            time =  LocalTime.parse(timeStr , formatter);
         }
         catch (Exception e){
             System.out.println("invalid time");
@@ -97,7 +101,7 @@ public class Database  {
 
     }
 
-    public void checkRule(String timeStr){
+    public static void checkRule(String timeStr){
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
         LocalTime time = null;
         try {
@@ -114,9 +118,23 @@ public class Database  {
         }
     }
 
-    public void showRules(){
+    public static void showRules(){
         for (Map.Entry<String, Entity.Rule> temp: rules.entrySet()) {
-            System.out.println("name: " + temp.getKey() + "time: " + temp.getValue().time.toString() + "action: " + temp.getValue().status.toString() );
+            System.out.println("name: " + temp.getKey() + "  time:  " + temp.getValue().time.toString() + "  action:  " + temp.getValue().status.toString() );
+        }
+    }
+
+    public static void createDevice(String type , String name , String protocol) throws Exception {
+        if(type.equals("light")){
+            addDevice(new Light(name ,Entity.Protocol.valueOf(protocol)));
+        }
+
+            else if(type.equals("thermostat")){
+           addDevice( new Thermostat(name ,Entity.Protocol.valueOf(protocol)));
+
+        }
+            else{
+                throw new IllegalArgumentException("invalid type");
         }
     }
 

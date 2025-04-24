@@ -9,7 +9,7 @@ public class Thermostat extends Entity  {
         this.setName(name);
         this.setProtocol(protocol);
         this.setTemperature(20);
-        this.setStatus(Status.OFF);
+        this.setStatus(Status.off);
     }
 
     private int temperature;
