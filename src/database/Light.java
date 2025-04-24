@@ -1,14 +1,18 @@
 package database;
 
-public class Light extends Entity {
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
-    public Light (String name , int brightness , Protocol protocol){
+public class Light extends Entity  {
+
+    public Light (String name , Protocol protocol){
         setName(name);
-        setBrightness(brightness);
-        setStatus(Status.OFF);
+        setBrightness(50);
+        setStatus(Status.off);
         setProtocol(protocol);
 
     }
+
 
     private int brightness;
 
@@ -19,4 +23,6 @@ public class Light extends Entity {
     public int getBrightness(){
         return brightness;
     }
+
+
 }

@@ -1,6 +1,17 @@
 package database;
 
-public class Thermostat extends Entity {
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+
+public class Thermostat extends Entity  {
+
+    public Thermostat (String name , Protocol protocol){
+        this.setName(name);
+        this.setProtocol(protocol);
+        this.setTemperature(20);
+        this.setStatus(Status.off);
+    }
+
     private int temperature;
 
     public int getTemperature() {
@@ -10,6 +21,7 @@ public class Thermostat extends Entity {
     public void setTemperature(int temperature) {
         this.temperature = temperature;
     }
+
 
 
 }

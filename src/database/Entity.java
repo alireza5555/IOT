@@ -1,17 +1,22 @@
 package database;
 
-public abstract class Entity {
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
-    enum Status{
-        ON,
-        OFF
+public abstract class Entity implements Cloneable {
+
+    public enum Status{
+        on,
+        off
     }
 
-    enum Protocol{
-        Wifi,
+    public enum Protocol{
+        WiFi,
         Bluetooth
     }
 
+    private Rule rule = null ;
     private Protocol protocol;
     private Status status;
     private String name;
@@ -25,6 +30,8 @@ public abstract class Entity {
     }
 
     public void setProtocol(Protocol protocol) {
+        if(protocol instanceof Protocol)
+
         this.protocol = protocol;
     }
 
@@ -38,5 +45,34 @@ public abstract class Entity {
 
     public Protocol getProtocol() {
         return protocol;
+    }
+
+    @Override
+    public Entity clone() {
+        try {
+            return (Entity) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    static class Rule{
+
+        public Rule(LocalTime time , String action){
+            this.time = time;
+            status = Status.valueOf(action);
+        }
+
+        LocalTime time;
+        Status status;
+    }
+
+    public Rule getRule() {
+        return rule;
+    }
+
+    public void setRule(Rule rule) {
+        this.rule = rule;
+
     }
 }
