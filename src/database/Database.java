@@ -1,5 +1,9 @@
 package database;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
 import java.util.*;
+
 
 public class Database  {
     private static ArrayList <Entity> deviceList = new ArrayList<>();
@@ -71,6 +75,13 @@ public class Database  {
             else System.out.println("Temperature: " + ((Thermostat)temp).getTemperature());
             System.out.println("Protocol: " + temp.getProtocol());
         }
+    }
+
+    public void addRule (String name , String timeStr , String action){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+        LocalTime time =  LocalTime.parse(timeStr , formatter);
+
+
     }
 
 }

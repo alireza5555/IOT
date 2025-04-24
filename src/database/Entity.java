@@ -1,5 +1,7 @@
 package database;
 
+import java.util.ArrayList;
+
 public abstract class Entity implements Cloneable {
 
     public enum Status{
@@ -11,6 +13,7 @@ public abstract class Entity implements Cloneable {
         Wifi,
         Bluetooth
     }
+
 
     private Protocol protocol;
     private Status status;
